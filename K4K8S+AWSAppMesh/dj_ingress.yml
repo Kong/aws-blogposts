@@ -1,0 +1,16 @@
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: djingress
+  namespace: prod
+  annotations:
+    konghq.com/strip-path: "true"
+spec:
+  rules:
+  - http:
+      paths:
+        - path: /dj
+          backend:
+            serviceName: dj
+            servicePort: 1000
+

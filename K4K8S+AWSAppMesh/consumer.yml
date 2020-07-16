@@ -1,0 +1,9 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongConsumer
+metadata:
+  name: consumer1
+  namespace: prod
+username: consumer1
+credentials:
+- consumerapikey
+
