@@ -12,5 +12,4 @@ spec:
         - path: /dj
           backend:
             serviceName: dj
-            servicePort: 1000
-
+            servicePort: 9080
