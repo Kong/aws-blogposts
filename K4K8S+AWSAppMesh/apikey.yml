@@ -4,4 +4,3 @@ metadata:
   name: apikey
   namespace: prod
 plugin: key-auth
-
