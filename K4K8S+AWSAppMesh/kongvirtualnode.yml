@@ -1,16 +1,21 @@
 apiVersion: appmesh.k8s.aws/v1beta2
 kind: VirtualNode
 metadata:
-  name: kong-proxy
+  name: kong
   namespace: kong
 spec:
   podSelector:
     matchLabels:
-      app: ingress-kong
+      app.kubernetes.io/instance: kong
   listeners:
     - portMapping:
         port: 80
         protocol: http
+  backends:
+    - virtualService:
+        virtualServiceRef:
+          name: jazz
+          namespace: prod
   serviceDiscovery:
     dns:
-      hostname: kong-proxy.kong.svc.cluster.local
+      hostname: kong-kong-proxy.kong.svc.cluster.local
