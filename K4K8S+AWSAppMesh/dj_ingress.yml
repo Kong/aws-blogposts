@@ -1,15 +1,17 @@
 apiVersion: extensions/v1beta1
 kind: Ingress
 metadata:
-  name: djingress
+  name: dj-jazz-ingress
   namespace: prod
   annotations:
+    kubernetes.io/ingress.class: kong
     konghq.com/strip-path: "true"
+    configuration.konghq.com: do-not-preserve-host
 spec:
   rules:
   - http:
       paths:
-        - path: /dj
+        - path: /dj/jazz
           backend:
-            serviceName: dj
+            serviceName: jazz
             servicePort: 9080
