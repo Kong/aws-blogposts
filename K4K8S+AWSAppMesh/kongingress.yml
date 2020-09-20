@@ -1,0 +1,7 @@
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: do-not-preserve-host
+  namespace: prod
+route:
+  preserve_host: false
