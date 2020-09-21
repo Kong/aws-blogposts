@@ -3,7 +3,5 @@ kind: KongIngress
 metadata:
   name: fqdn-host
   namespace: prod
-proxy:
-  host:  jazz.prod.svc.cluster.local
 upstream:
   host_header: jazz.prod.svc.cluster.local
