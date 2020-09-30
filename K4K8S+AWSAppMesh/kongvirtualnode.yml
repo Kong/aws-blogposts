@@ -16,6 +16,10 @@ spec:
         virtualServiceRef:
           name: jazz
           namespace: prod
+    - virtualService:
+        virtualServiceRef:
+          name: metal
+          namespace: prod
   serviceDiscovery:
     dns:
       hostname: kong-kong-proxy.kong.svc.cluster.local
