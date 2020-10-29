@@ -1,4 +1,4 @@
-piVersion: configuration.konghq.com/v1
+apiVersion: configuration.konghq.com/v1
 kind: KongIngress
 metadata:
   name: fqdn-jazz
