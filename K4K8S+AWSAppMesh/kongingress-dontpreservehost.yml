@@ -5,3 +5,4 @@ metadata:
   namespace: prod
 route:
   preserve_host: false
+  strip_path: true

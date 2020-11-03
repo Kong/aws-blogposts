@@ -20,7 +20,7 @@ metadata:
   name: jazz
   namespace: prod
   annotations:
-    configuration.konghq.com: fqdn-jazz
+    konghq.com/override: fqdn-jazz
     ingress.kubernetes.io/service-upstream: "true"
   labels:
     app: jazz
@@ -36,7 +36,7 @@ metadata:
   name: metal
   namespace: prod
   annotations:
-    configuration.konghq.com: fqdn-metal
+    konghq.com/override: fqdn-metal
     ingress.kubernetes.io/service-upstream: "true"
   labels:
     app: metal
