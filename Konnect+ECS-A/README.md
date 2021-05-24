@@ -2,25 +2,29 @@
 
 Overcoming Challenges of Running Microservices in Amazon ECS-A with Kong
 
-Service mesh is an infrastructure layer that has become a common architectural pattern for intra-service communication. By combining Amazon EKS and AWS App Mesh, you form a powerful platform for your microservices, addressing technical requirements that occur in service-to-service communication, including load balancing, service discovery, observability, access control, tracing, health checks and circuit breakers.
+One of the most powerful capabilities provided by Kong Konnect Enterprise is the support for Hybrid deployments. In other words, it implements distributed API Gateway Clusters with multiple instances running on several environments at the same time.
 
-On the other hand, enabling ingress management, security and traffic monitoring for the cluster requires an enterprise-grade solution. While it is possible to achieve this by stitching many tools outside of the cluster perimeter, the Kong for Kubernetes Ingress Controller provides a solution that will run inside your cluster side by side with your application services, enabling Kubernetes capabilities like HPA, Self-healing, RBAC and Cert-manager, among others. 
+Moreover, Konnect Enterprise provides a new topology option, named Hybrid Mode, with a total separation of the Control Plane (CP) and Data Plane (DP). That is, while Control Plane is responsible for administration tasks, the Data Plane is exclusively used by API Consumers.
 
-This post will explore how to use Amazon EKS, App Mesh and Kong for Kubernetes to implement and protect a service mesh.
+Please, refer to the following link to read more about the Hybrid deployment: https://docs.konghq.com/enterprise/2.4.x/deployment/hybrid-mode/
 
-The Business Problem
-An application is responsible for managing two categories of traffic:
-Traffic coming from outside the Application domain
-Traffic within the Application or Service-to-Service communication
 
-Service meshes are responsible for implementing the second traffic category.
+Reference Architecture
+Here's a Reference Architecture implemented in AWS:
+The Control Plane runs as a Docker container on an EC2 instance. Notice the PostgreSQL RDS Database is located behind the CP.
+The first Data Plane runs as another Docker container on a different EC2 instance.
+The second Data Plane runs on an Elastic Kubernetes Service (EKS) Cluster.
 
-The first traffic category requires capabilities that are better suited in a separate layer. In other words, common, global, cluster-wide and generic policies should be applied to the service mesh but externalized in a specific component. Throttling, application and user authentication, request logging and tracing, data caching, and encrypted channels are some examples of such policies.
 
-Enter AWS App Mesh and Kong for Kubernetes Ingress Controller
 
-AWS App Mesh is one the best options available in the marketplace today for a service mesh implementation. Kong for Kubernetes is responsible for controlling the traffic going through the ingresses that expose the service mesh to external consumers by defining, applying and enforcing policies to the ingresses.
+Considering the capabilities provided by the Kubernetes platform, running Data Planes on this platform delivers a powerful environment. Here are some capabilities leveraged by the Data Plane on Kubernetes:
+High Availability: One of the main Kubernetes' capabilities is "Self-Healing". If a "pod" crashes, Kubernetes takes care of it, reinitializing the "pod".
+Scalability/Elasticity: HPA ("Horizontal Pod Autoscaler") is the capability to initialize and terminate "pod" replicas based on previously defined policies. The policies define "thresholds" to tell Kubernetes the conditions where it should initiate a brand new "pod" replica or terminate a running one.
+Load Balancing: The Kubernetes Service notion defines an abstraction level on top of the "pod" replicas that might have been up or down (due HPA policies, for instance). Kubernetes keeps all the "pod" replicas hidden from the "callers" through Services.
 
+Important remark #1: this tutorial is intended to be used for labs and PoC only. There are many aspects and processes, typically implemented in production sites, not described here. For example: Digital Certificate issuing, Cluster monitoring, etc.
+
+Important remark #2: the deployment is based on Kong Enterprise 2.1. Please contact Kong to get a Kong Enterprise trial license to run this lab.
 Kong for Kubernetes supports the following capabilities:
 Scalability: Based on the Kong API gateway, it's responsible for managing the ingresses
 Security: Leverages Kubernetes namespace-based RBAC model to ensure consistent access controls
