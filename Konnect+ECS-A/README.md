@@ -1,8 +1,58 @@
-# Kong Konnect Enterprise and ECS-Anywhere
+# Kong Konnect Enterprise & Elastic Container Service Anywhere (ECS-A)
+
+Overcoming Challenges of Running Microservices in Amazon EKS With AWS App Mesh and Kong
+
+Service mesh is an infrastructure layer that has become a common architectural pattern for intra-service communication. By combining Amazon EKS and AWS App Mesh, you form a powerful platform for your microservices, addressing technical requirements that occur in service-to-service communication, including load balancing, service discovery, observability, access control, tracing, health checks and circuit breakers.
+
+On the other hand, enabling ingress management, security and traffic monitoring for the cluster requires an enterprise-grade solution. While it is possible to achieve this by stitching many tools outside of the cluster perimeter, the Kong for Kubernetes Ingress Controller provides a solution that will run inside your cluster side by side with your application services, enabling Kubernetes capabilities like HPA, Self-healing, RBAC and Cert-manager, among others. 
+
+This post will explore how to use Amazon EKS, App Mesh and Kong for Kubernetes to implement and protect a service mesh.
+
+The Business Problem
+An application is responsible for managing two categories of traffic:
+Traffic coming from outside the Application domain
+Traffic within the Application or Service-to-Service communication
+
+Service meshes are responsible for implementing the second traffic category.
+
+The first traffic category requires capabilities that are better suited in a separate layer. In other words, common, global, cluster-wide and generic policies should be applied to the service mesh but externalized in a specific component. Throttling, application and user authentication, request logging and tracing, data caching, and encrypted channels are some examples of such policies.
+
+Enter AWS App Mesh and Kong for Kubernetes Ingress Controller
+
+AWS App Mesh is one the best options available in the marketplace today for a service mesh implementation. Kong for Kubernetes is responsible for controlling the traffic going through the ingresses that expose the service mesh to external consumers by defining, applying and enforcing policies to the ingresses.
+
+Kong for Kubernetes supports the following capabilities:
+Scalability: Based on the Kong API gateway, it's responsible for managing the ingresses
+Security: Leverages Kubernetes namespace-based RBAC model to ensure consistent access controls
+Extensibility: An extensive plugin ecosystem offers a variety of options to protect your service mesh, such as OpenID Connect and mutual TLS authentication and authorization, rate-limiting, IP restrictions, and self-service credential registration through the Kong Enterprise Developer Portal.
+Observability: It can be fully integrated with monitoring and tracing tools like Prometheus/Grafana, Jaeger, AWS Elasticsearch Service and AWS CloudWatch.
 
 
-Kong Konnect Enterprise & Elastic Container Service Anywhere (ECS-A)
-Reference Architecture
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
