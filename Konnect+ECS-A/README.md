@@ -1,6 +1,6 @@
-# Kong Konnect Enterprise & Elastic Container Service Anywhere (ECS-A)
+# Kong Konnect Enterprise & Elastic Container Service Anywhere
 
-Overcoming Challenges of Running Microservices in Amazon EKS With AWS App Mesh and Kong
+Overcoming Challenges of Running Microservices in Amazon ECS-A with Kong
 
 Service mesh is an infrastructure layer that has become a common architectural pattern for intra-service communication. By combining Amazon EKS and AWS App Mesh, you form a powerful platform for your microservices, addressing technical requirements that occur in service-to-service communication, including load balancing, service discovery, observability, access control, tracing, health checks and circuit breakers.
 
