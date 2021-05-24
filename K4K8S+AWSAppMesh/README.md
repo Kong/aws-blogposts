@@ -2,6 +2,3 @@
  
 Kong for Kubernetes Ingress Controller declarations
 
-
-asdasd
-
