@@ -30,6 +30,73 @@ Observability: It can be fully integrated with monitoring and tracing tools like
 
 
 
+# Running microservices in Amazon EKS with AWS App Mesh and Kong
+by Mikhail Shapirov | on 03 DEC 2020 | in Amazon Elastic Kubernetes Service, AWS App Mesh, Containers | Permalink |  Share
+This post was created in collaboration with Claudio Acquaviva, Solution Engineer, Kong, and Morgan Davies, Kong Alliances.
+
+A service mesh is transparent infrastructure layer that has become a common architectural pattern for intra-service communication. By combining Amazon EKS and AWS App Mesh, you form a powerful platform for your microservices, addressing technical requirements that occur in service-to-service communication, including load balancing, service discovery, observability, access control, tracing, health checks, and circuit breakers.
+
+A modern enterprise solution requires clear management controls for the following categories:
+
+API Management covering external traffic ingress to the API endpoints.
+Service management capabilities focusing on operational controls and service health.
+While service meshes primarily address the second category, the ingress is no less important and can benefit from a solution that supports cluster-wide policies such as throttling, application and user authentication, request logging and tracing, and data caching. In addition to these polices, the ingress is the layer that enables you to monetize your APIs by capturing usage, attaching billing systems, and generating alerts that go beyond operational concerns.
+
+While it is possible to achieve this by stitching tools outside of the cluster perimeter, the Kong for Kubernetes Ingress Controller provides a solution that will protect your service mesh running side by side with your application services, leveraging Kubernetes capabilities like HPA, self-healing, RBAC, and cert-manager, among others.
+
+This post will explore how to use Amazon EKS, AWS App Mesh, and Kong for Kubernetes to implement and protect a service mesh. The problem space that we will address is not just about managing your APIs and external traffic; we will also cover deeper integration scenarios. Not only will we handle the ingress in a Kubernetes-native way, we will also make it part of the service mesh itself, improving your observability, security, and traffic control.
+
+Enter AWS App Mesh and Kong for Kubernetes Ingress Controller
+AWS App Mesh is a fully managed service that customers can use to implement a service mesh. This service makes it easy to manage internal service-to-service communication across multiple types of compute infrastructure. Kong for Kubernetes is responsible for controlling the traffic going through the ingresses that expose the service mesh to external consumers by defining, applying, and enforcing policies to the ingresses.
+
+Kong for Kubernetes supports the following capabilities:
+
+Scalability: Based on the Kong API gateway, it’s responsible for managing the ingresses. It is common for applications to experience significant fluctuations in volume of traffic, affecting your ingress as well. Kong for Kubernetes is taking advantage of standard Kubernetes scalability controls like Horizontal Pod Autoscaler (HPA) and will scale seamlessly with the demand.
+Security: Leverages Kubernetes namespace-based RBAC model to ensure consistent access controls. These controls are essential to segregate responsibilities between platform, API, and application teams, which handle their part in the software delivery and operations. For example, application teams restricted to their individual namespaces must still be able to define ingress objects, while access to the ingress controller and API management components can be restricted to the dedicated team(s).
+Extensibility: An extensive plugin ecosystem offers a variety of options to protect your service mesh, such as OpenID Connect and mutual TLS authentication and authorization, rate-limiting, IP restrictions, and self-service credential registration through the Kong Enterprise Developer Portal.
+Observability: It can be fully integrated with monitoring, tracing and logging tools like Prometheus, Jaeger, and AWS CloudWatch.
+Here’s the Kong for Kubernetes architecture diagram:
+
+
+
+Kong for Kubernetes Aarchitecture
+The following diagram describes the Kong for Kubernetes architecture:
+
+Kong architecture diagram
+
+The Kong for Kubernetes pod contains two containers:
+
+The Kong Gateway container represents the data plane responsible for processing API traffic and enforcement of policies defined by the ready-to-use plugins available in Kong for Kubernetes.
+The controller container represents the control plane that translates Kubernetes manifests and CRDs into Kong configuration, removing the need for separate administration of proxy and Kubernetes configuration.
+In front of Kong for Kubernetes, there is a Classic Load Balancer (CLB) or Network Load Balancer (NLB) exposing the Kong Gateway to the external consumers. Furthermore, Kong for Kubernetes is protecting all services behind it, including ClusterIP services running inside the Kubernetes cluster or external services exposed in your cluster.
+
+Prerequisites
+Before starting this process, ensure the following prerequisites are ready:
+
+An EKS 1.15 or higher cluster is already deployed. For this exercise, eksctl was used
+Kubectl 1.15 or higher installed locally
+Helm V3
+Curl or any other HTTP client
+Solution deployment
+The deployment is an evolution of the DJ Service Mesh Application, adding the ingress controller layer on top of it. Kong for Kubernetes provides an extensive list of plugins to implement numerous policies, such as authentication, log processing, caching, and more.
+
+To get started, let’s implement an API key-based security layer and rate-limiting policies to control the ingress consumption.
+
+Step 1: Deploy your DJ service mesh application
+Follow the following steps described in the EKS workshop to deploy the DJ service mesh application:
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
