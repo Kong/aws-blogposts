@@ -1359,7 +1359,7 @@ kubectl create -f manifests/
 
 
 
-### Uninstall Prometheus Operator
+### Accessing Prometheus, Grafana and AlertManager 
 
 
 ```
