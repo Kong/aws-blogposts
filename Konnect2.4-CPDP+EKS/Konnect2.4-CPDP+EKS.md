@@ -11,11 +11,8 @@ Please, refer to the following link to read more about the Hybrid deployment: [h
 
 Here's a Reference Architecture implemented in AWS:
 
-
-
-*   The Control Plane runs as a Docker container on an EC2 instance. Notice the PostgreSQL RDS Database is located behind the CP.
-*   The first Data Plane runs as another Docker container on a different EC2 instance.
-*   The second Data Plane runs on an Elastic Kubernetes Service (EKS) Cluster.
+*   Both Control Plane and Data Plane runs on an Elastic Kubernetes Service (EKS) Cluster in different namespaces.
+*   PostgreSQL Database is located behind the CP.
 
 
 
