@@ -29,7 +29,7 @@ Considering the capabilities provided by the Kubernetes platform, running Data P
 
 **Important remark #1:** this tutorial is intended to be used for labs and PoC only. There are many aspects and processes, typically implemented in production sites, not described here. For example: Digital Certificate issuing, Cluster monitoring, etc.
 
-**Important remark #2:** the deployment is based on Kong Enterprise 2.3. Please contact Kong to get a Kong Enterprise trial license to run this lab.
+**Important remark #2:** the deployment is based on Kong Enterprise 2.4. Please contact Kong to get a Kong Enterprise trial license to run this lab.
 
 
 # 
