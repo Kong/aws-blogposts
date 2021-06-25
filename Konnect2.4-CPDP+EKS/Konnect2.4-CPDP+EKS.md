@@ -1540,7 +1540,7 @@ monitoring    prometheus-operator             ClusterIP      None             <n
 
 
 
-## Setting the TCP-Log Plugin
+## Setting the TCPLog Plugin
 
 The externalization of all processed requests data to ELK is done by a TCP stream defined through the TCP-Log plugin.
 
@@ -1564,7 +1564,7 @@ EOF
 
 
 
-### Apply TCP Log plugin to the Ingress
+### Apply TCPLog plugin to the Ingress
 
 
 ```
