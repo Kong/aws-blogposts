@@ -1355,9 +1355,7 @@ kubectl create -f manifests/
 ```
 
 
-
-### Accessing Prometheus, Grafana and AlertManager 
-
+### Uninstall Prometheus Operator
 
 ```
 kubectl delete --ignore-not-found=true -f manifests/ -f manifests/setup
@@ -1365,8 +1363,8 @@ kubectl delete --ignore-not-found=true -f manifests/ -f manifests/setup
 
 
 
-### Uninstall Prometheus Operator
 
+### Accessing Prometheus, Grafana and AlertManager 
 
 ```
 kubectl --namespace monitoring port-forward svc/prometheus-k8s 9090
