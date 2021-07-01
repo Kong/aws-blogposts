@@ -63,7 +63,7 @@ Here’s the Kong for Kubernetes architecture diagram:
 
 
 
-Kong for Kubernetes Aarchitecture
+Kong for Kubernetes Architecture
 The following diagram describes the Kong for Kubernetes architecture:
 
 Kong architecture diagram
