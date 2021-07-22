@@ -168,7 +168,8 @@ We will use Helm to add the kong chart repository and install Kong for Kubernete
 
 helm repo add kong https://charts.konghq.com 
 helm repo update 
-helm install -n kong kong kong/kong --version "1.11.0" --set ingressController.installCRDs=false
+helm install -n kong kong kong/kong --version "2.X.0" --set ingressController.installCRDs=false
+- Note: 2.X.0 should at least 2.1.0
 By default App Mesh will not allow egress from the nodes except to the nodes that are explicitly defined in the mesh. This will prevent the ingress controller container to communicate with the API server, so the deployment of the Kong pod will be failing. To address this aspect, we will use an App Mesh feature, which allows to bypass egress filtering for containers running under security context with (by default) UID 1337. Setting this security context option for the ingress-controller enables it to communicate with the API server, while the rest of the nodes in the service mesh will be restricted to communicate only with the nodes that are defined in the mesh:
 
 kubectl patch deploy -n kong kong-kong -p '{"spec":{"template":{"spec":{"containers":[{"name":"ingress-controller","securityContext":{"runAsUser": 1337}}]}}}}'
